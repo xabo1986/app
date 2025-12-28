@@ -21,10 +21,10 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center space-x-4">
             <Link href="/demo">
-              <Button variant="ghost">Se demo</Button>
+              <Button variant="ghost">Try Demo</Button>
             </Link>
             <Link href="/auth">
-              <Button>Start gratis prøve</Button>
+              <Button>Start Free Trial</Button>
             </Link>
           </div>
         </div>
@@ -34,20 +34,20 @@ export default function LandingPage() {
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-            Praktisk svensk på 3 minutter om dagen.
+            Learn Practical Swedish in 3 Minutes a Day.
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Lær svensk som passer din hverdag. Korte, praktiske leksjoner basert på situasjoner du faktisk møter.
+            Master Swedish for real-life situations. Short, practical lessons based on scenarios you actually encounter.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth">
               <Button size="lg" className="w-full sm:w-auto">
-                Start gratis prøve
+                Start Free Trial
               </Button>
             </Link>
             <Link href="/demo">
               <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                Se demo
+                Try Demo
               </Button>
             </Link>
           </div>
@@ -59,16 +59,16 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <p className="text-4xl font-bold mb-2">5 000+</p>
-              <p className="text-muted-foreground">Aktive brukere</p>
+              <p className="text-4xl font-bold mb-2">5,000+</p>
+              <p className="text-muted-foreground">Active learners</p>
             </div>
             <div>
-              <p className="text-4xl font-bold mb-2">50 000+</p>
-              <p className="text-muted-foreground">Leksjoner fullført</p>
+              <p className="text-4xl font-bold mb-2">50,000+</p>
+              <p className="text-muted-foreground">Lessons completed</p>
             </div>
             <div>
               <p className="text-4xl font-bold mb-2">4.8/5</p>
-              <p className="text-muted-foreground">Gjennomsnittlig vurdering</p>
+              <p className="text-muted-foreground">Average rating</p>
             </div>
           </div>
         </div>
@@ -77,33 +77,33 @@ export default function LandingPage() {
       {/* How It Works */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Hvordan det fungerer</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-12">
             <div className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Target className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">1. Personlig onboarding</h3>
+              <h3 className="text-xl font-semibold mb-3">1. Personalized Onboarding</h3>
               <p className="text-muted-foreground">
-                Fortell oss om din hverdag, og vi tilpasser innholdet til situasjoner du faktisk møter.
+                Tell us about your daily life, and we'll tailor content to situations you actually face.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Clock className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">2. Daglig mikroleksjon</h3>
+              <h3 className="text-xl font-semibold mb-3">2. Daily Micro-Lesson</h3>
               <p className="text-muted-foreground">
-                Bare 1-3 minutter hver dag med lyd, tekst og interaktive oppgaver som du kan gjøre hvor som helst.
+                Just 1-3 minutes each day with audio, text, and interactive exercises you can do anywhere.
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <TrendingUp className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">3. Følg fremdriften</h3>
+              <h3 className="text-xl font-semibold mb-3">3. Track Progress</h3>
               <p className="text-muted-foreground">
-                Se streak-statistikk og lær konsekvent uten press. Enkelt å holde motivasjonen oppe.
+                See your streak stats and learn consistently without pressure. Easy to stay motivated.
               </p>
             </div>
           </div>
@@ -113,71 +113,71 @@ export default function LandingPage() {
       {/* Features */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Hva du får</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">What You Get</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
                 <MessageCircle className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Praktiske situasjoner</CardTitle>
+                <CardTitle>Real-Life Situations</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Lær fraser og ordforråd du trenger i butikken, på jobb, på lege, og i telefonen.
+                  Learn phrases and vocabulary you need at the store, at work, at the doctor, and on the phone.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <Zap className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Lyd og uttale</CardTitle>
+                <CardTitle>Audio & Pronunciation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Høring og repetisjon med norsk-svensk lyd, så du lærer riktig uttale fra dag én.
+                  Listen and repeat with native Swedish audio, so you learn correct pronunciation from day one.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <CheckCircle2 className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Streak-motivasjon</CardTitle>
+                <CardTitle>Streak Motivation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Hold deg motivert med enkle streak-mål. Ingen barnslig gamification, bare ren fremdrift.
+                  Stay motivated with simple streak goals. No childish gamification, just pure progress.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <Target className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Tilpasset innhold</CardTitle>
+                <CardTitle>Personalized Content</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Velg hvilke scenarioer som er viktigst for deg, og øv på det du trenger mest.
+                  Choose which scenarios matter most to you, and practice what you need most.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <Clock className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Bare 3 minutter</CardTitle>
+                <CardTitle>Just 3 Minutes</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Korte leksjoner som passer inn i enhver hverdag. Ingen stress, bare læring.
+                  Short lessons that fit into any schedule. No stress, just learning.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <TrendingUp className="h-10 w-10 text-primary mb-4" />
-                <CardTitle>Følg fremgang</CardTitle>
+                <CardTitle>Track Progress</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Se hvor langt du har kommet med XP, daglige mål og ukentlig statistikk.
+                  See how far you've come with XP, daily goals, and weekly statistics.
                 </p>
               </CardContent>
             </Card>
@@ -188,26 +188,26 @@ export default function LandingPage() {
       {/* Pricing */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Velg din plan</h2>
-          <p className="text-center text-muted-foreground mb-12">Start gratis, oppgrader når du vil</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Choose Your Plan</h2>
+          <p className="text-center text-muted-foreground mb-12">Start free, upgrade when you want</p>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className={activePricing === 'basic' ? 'border-primary' : ''}>
               <CardHeader>
                 <CardTitle className="text-2xl">Basic</CardTitle>
-                <CardDescription>Perfekt for å komme i gang</CardDescription>
+                <CardDescription>Perfect to get started</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">Gratis</span>
+                  <span className="text-4xl font-bold">Free</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>3 minutter daglig leksjon</span>
+                    <span>3 minute daily lesson</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>2 scenarioer (Butikk, Jobb)</span>
+                    <span>2 scenarios (Shop, Work)</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
@@ -215,12 +215,12 @@ export default function LandingPage() {
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Grunnleggende statistikk</span>
+                    <span>Basic statistics</span>
                   </li>
                 </ul>
                 <Link href="/auth">
                   <Button variant="outline" className="w-full">
-                    Start gratis
+                    Start Free
                   </Button>
                 </Link>
               </CardContent>
@@ -228,41 +228,41 @@ export default function LandingPage() {
             <Card className={activePricing === 'pro' ? 'border-primary shadow-lg' : ''}>
               <CardHeader>
                 <div className="inline-block bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full mb-2">
-                  Mest populær
+                  Most Popular
                 </div>
                 <CardTitle className="text-2xl">Pro</CardTitle>
-                <CardDescription>For seriøs læring</CardDescription>
+                <CardDescription>For serious learning</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">99 kr</span>
-                  <span className="text-muted-foreground">/måned</span>
+                  <span className="text-4xl font-bold">$9.99</span>
+                  <span className="text-muted-foreground">/month</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Alt i Basic</span>
+                    <span>Everything in Basic</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Alle 4 scenarioer (Butikk, Jobb, Telefon, Lege)</span>
+                    <span>All 4 scenarios (Shop, Work, Phone, Doctor)</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Ubegrenset scenario-tilpasning</span>
+                    <span>Unlimited scenario customization</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Avansert fremgangsstatistikk</span>
+                    <span>Advanced progress statistics</span>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5" />
-                    <span>Offline tilgang</span>
+                    <span>Offline access</span>
                   </li>
                 </ul>
                 <Link href="/auth">
                   <Button className="w-full">
-                    Prøv gratis i 7 dager
+                    Try Free for 7 Days
                   </Button>
                 </Link>
               </CardContent>
@@ -274,36 +274,36 @@ export default function LandingPage() {
       {/* FAQ */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Ofte stilte spørsmål</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Hvor lang tid tar hver leksjon?</AccordionTrigger>
+              <AccordionTrigger>How long does each lesson take?</AccordionTrigger>
               <AccordionContent>
-                Hver leksjon tar mellom 1-3 minutter. Vi vet at du har en travel hverdag, så leksjonene er korte nok til å passe inn når som helst på dagen.
+                Each lesson takes between 1-3 minutes. We know you have a busy schedule, so lessons are short enough to fit in anytime during the day.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger>Kan jeg prøve gratis?</AccordionTrigger>
+              <AccordionTrigger>Can I try it for free?</AccordionTrigger>
               <AccordionContent>
-                Ja! Basic-planen er helt gratis og gir deg tilgang til de grunnleggende funksjonene. Du kan oppgradere til Pro når du vil for å få tilgang til alle scenarioer og funksjoner.
+                Yes! The Basic plan is completely free and gives you access to core features. You can upgrade to Pro anytime to get access to all scenarios and features.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger>Hva skjer hvis jeg glemmer en dag?</AccordionTrigger>
+              <AccordionTrigger>What happens if I miss a day?</AccordionTrigger>
               <AccordionContent>
-                Streak-en din resettes, men det er ikke noe stress! Du kan starte på nytt neste dag. Målet vårt er å hjelpe deg lære, ikke å legge press på deg.
+                Your streak will reset, but no stress! You can start fresh the next day. Our goal is to help you learn, not to add pressure.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
-              <AccordionTrigger>Hvordan tilpasses innholdet til meg?</AccordionTrigger>
+              <AccordionTrigger>How is content personalized?</AccordionTrigger>
               <AccordionContent>
-                Under onboarding velger du hvilke situasjoner som er viktigst for deg (butikk, jobb, telefon, lege). Leksjonene tilpasses basert på disse valgene, så du lærer det som er mest relevant.
+                During onboarding, you choose which situations are most important to you (shop, work, phone, doctor). Lessons are tailored based on these choices, so you learn what's most relevant.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
-              <AccordionTrigger>Kan jeg kansellere når som helst?</AccordionTrigger>
+              <AccordionTrigger>Can I cancel anytime?</AccordionTrigger>
               <AccordionContent>
-                Ja, du kan kansellere abonnementet ditt når som helst uten binding. Du beholder tilgangen til Pro-funksjoner ut den perioden du har betalt for.
+                Yes, you can cancel your subscription anytime with no commitment. You'll retain access to Pro features for the period you've paid for.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -313,13 +313,13 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Klar til å lære svensk?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Learn Swedish?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Start i dag og ta det første steget mot bedre svensk.
+            Start today and take the first step toward better Swedish.
           </p>
           <Link href="/auth">
             <Button size="lg">
-              Start gratis prøve
+              Start Free Trial
             </Button>
           </Link>
         </div>
@@ -335,34 +335,34 @@ export default function LandingPage() {
                 <span className="font-semibold">SvenskPå3</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Praktisk svensk på 3 minutter om dagen.
+                Learn practical Swedish in 3 minutes a day.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Produkt</h4>
+              <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link href="/demo" className="hover:text-foreground">Demo</Link></li>
-                <li><Link href="/#pricing" className="hover:text-foreground">Priser</Link></li>
-                <li><Link href="/auth" className="hover:text-foreground">Logg inn</Link></li>
+                <li><Link href="/#pricing" className="hover:text-foreground">Pricing</Link></li>
+                <li><Link href="/auth" className="hover:text-foreground">Sign In</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/contact" className="hover:text-foreground">Kontakt oss</Link></li>
+                <li><Link href="/contact" className="hover:text-foreground">Contact Us</Link></li>
                 <li><Link href="/#faq" className="hover:text-foreground">FAQ</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Juridisk</h4>
+              <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/privacy" className="hover:text-foreground">Personvern</Link></li>
-                <li><Link href="/terms" className="hover:text-foreground">Vilkår</Link></li>
+                <li><Link href="/privacy" className="hover:text-foreground">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-foreground">Terms</Link></li>
               </ul>
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 SvenskPå3. Alle rettigheter reservert.</p>
+            <p>&copy; 2025 SvenskPå3. All rights reserved.</p>
           </div>
         </div>
       </footer>

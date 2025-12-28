@@ -7,31 +7,31 @@ import { ArrowLeft, Volume2, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
 const SCENARIOS = [
-  { id: 'butikk', title: 'Butikk', emoji: '🛒' },
-  { id: 'jobb', title: 'Jobb', emoji: '💼' },
-  { id: 'telefon', title: 'Telefon', emoji: '📞' },
-  { id: 'lege', title: 'Lege', emoji: '🏥' }
+  { id: 'butikk', title: 'Shop', emoji: '🛒' },
+  { id: 'jobb', title: 'Work', emoji: '💼' },
+  { id: 'telefon', title: 'Phone', emoji: '📞' },
+  { id: 'lege', title: 'Doctor', emoji: '🏥' }
 ];
 
 const QUESTIONS = {
   butikk: [
     {
       type: 'multiple',
-      question: 'Hva betyr "Jag skulle vilja ha..."?',
+      question: 'What does "Jag skulle vilja ha..." mean?',
       audio: 'Jag skulle vilja ha en kaffe',
-      options: ['Jeg vil gjerne ha...', 'Jeg liker...', 'Jeg trenger hjelp', 'Jeg heter...'],
+      options: ['I would like to have...', 'I like...', 'I need help', 'My name is...'],
       correct: 0
     },
     {
       type: 'listening',
-      question: 'Hør på uttrykket og velg riktig oversettelse:',
+      question: 'Listen to the phrase and choose the correct translation:',
       audio: 'Hur mycket kostar det?',
-      options: ['Hvor mye koster det?', 'Hva heter du?', 'Kan jeg betale?', 'Hvor er toalettet?'],
+      options: ['How much does it cost?', 'What is your name?', 'Can I pay?', 'Where is the bathroom?'],
       correct: 0
     },
     {
       type: 'multiple',
-      question: 'Hvordan sier du "Kan jeg betale med kort?" på svensk?',
+      question: 'How do you say "Can I pay with card?" in Swedish?',
       audio: 'Kan jag betala med kort?',
       options: ['Kan jeg betala med kort?', 'Kan jag betala med kort?', 'Kan du betala med kort?', 'Kan vi betala med kort?'],
       correct: 1
@@ -40,69 +40,69 @@ const QUESTIONS = {
   jobb: [
     {
       type: 'multiple',
-      question: 'Hva betyr "Jag kan börja klockan..."?',
+      question: 'What does "Jag kan börja klockan..." mean?',
       audio: 'Jag kan börja klockan åtta',
-      options: ['Jeg kan begynne klokken...', 'Jeg kan slutte klokken...', 'Jeg kan spise klokken...', 'Jeg kan møte klokken...'],
+      options: ['I can start at...', 'I can finish at...', 'I can eat at...', 'I can meet at...'],
       correct: 0
     },
     {
       type: 'listening',
-      question: 'Hør og velg riktig oversettelse:',
+      question: 'Listen and choose the correct translation:',
       audio: 'Kan du förklara igen?',
-      options: ['Kan du forklare igjen?', 'Kan du hjelpe meg?', 'Kan du vente?', 'Kan du komme?'],
+      options: ['Can you explain again?', 'Can you help me?', 'Can you wait?', 'Can you come?'],
       correct: 0
     },
     {
       type: 'multiple',
-      question: 'Hvordan ber du om hjelp på svensk?',
+      question: 'How do you ask for help in Swedish?',
       audio: 'Jag behöver hjälp med detta',
-      options: ['Jag trenger hjælp', 'Jag behöver hjälp', 'Jag vil hjælp', 'Jag kan hjælp'],
+      options: ['Jag trenger hjelp', 'Jag behöver hjälp', 'Jag vil hjelp', 'Jag kan hjelp'],
       correct: 1
     }
   ],
   telefon: [
     {
       type: 'listening',
-      question: 'Hør på hilsenen og velg riktig oversettelse:',
+      question: 'Listen to the greeting and choose the correct translation:',
       audio: 'Hej, jag ringer angående mötet',
-      options: ['Hei, jeg ringer angående møtet', 'Hei, jeg kommer til møtet', 'Hei, jeg liker møtet', 'Hei, jeg trenger møtet'],
+      options: ['Hello, I am calling about the meeting', 'Hello, I am coming to the meeting', 'Hello, I like the meeting', 'Hello, I need the meeting'],
       correct: 0
     },
     {
       type: 'multiple',
-      question: 'Hvordan ber du noen gjenta noe på svensk?',
+      question: 'How do you ask someone to repeat something in Swedish?',
       audio: 'Kan du upprepa det?',
       options: ['Kan du uppreppa det?', 'Kan du upprepa det?', 'Kan du upprepe det?', 'Kan jeg upprepa det?'],
       correct: 1
     },
     {
       type: 'multiple',
-      question: 'Hva betyr "Tack, ha en bra dag"?',
+      question: 'What does "Tack, ha en bra dag" mean?',
       audio: 'Tack, ha en bra dag',
-      options: ['Takk, ha en fin dag', 'Hei, ha en fin dag', 'Takk, vi ses', 'Hei, vi ses'],
+      options: ['Thanks, have a nice day', 'Hello, have a nice day', 'Thanks, see you', 'Hello, see you'],
       correct: 0
     }
   ],
   lege: [
     {
       type: 'multiple',
-      question: 'Hvordan sier du "Jeg har vondt i..." på svensk?',
+      question: 'How do you say "I have pain in..." in Swedish?',
       audio: 'Jag har ont i huvudet',
       options: ['Jag har ont', 'Jag har ondt', 'Jag er ont', 'Jag gör ont'],
       correct: 0
     },
     {
       type: 'listening',
-      question: 'Hør og velg riktig oversettelse:',
+      question: 'Listen and choose the correct translation:',
       audio: 'Det började i går',
-      options: ['Det begynte i går', 'Det sluttet i går', 'Det skjedde i går', 'Det kom i går'],
+      options: ['It started yesterday', 'It ended yesterday', 'It happened yesterday', 'It came yesterday'],
       correct: 0
     },
     {
       type: 'multiple',
-      question: 'Hvordan spør du om du trenger en time?',
+      question: 'How do you ask if you need an appointment?',
       audio: 'Behöver jag en tid?',
-      options: ['Trenger jeg en tid?', 'Behöver jag en tid?', 'Vil jeg en tid?', 'Kan jeg en tid?'],
+      options: ['Do I need an appointment?', 'Behöver jag en tid?', 'Do I want an appointment?', 'Can I have an appointment?'],
       correct: 1
     }
   ]
@@ -159,14 +159,14 @@ export default function DemoPage() {
           <div className="container mx-auto px-4 py-4">
             <Link href="/" className="inline-flex items-center text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Tilbake
+              Back
             </Link>
           </div>
         </nav>
         <div className="container mx-auto px-4 py-12 max-w-4xl">
-          <h1 className="text-4xl font-bold mb-4 text-center">Prøv en demoleksjon</h1>
+          <h1 className="text-4xl font-bold mb-4 text-center">Try a Demo Lesson</h1>
           <p className="text-xl text-muted-foreground mb-12 text-center">
-            Velg et scenario og få en smakebit på hvordan leksjonene fungerer
+            Choose a scenario and get a taste of how the lessons work
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {SCENARIOS.map((s) => (
@@ -180,7 +180,7 @@ export default function DemoPage() {
                   <CardTitle>{s.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full">Start demo</Button>
+                  <Button className="w-full">Start Demo</Button>
                 </CardContent>
               </Card>
             ))}
@@ -203,10 +203,10 @@ export default function DemoPage() {
               className="inline-flex items-center text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Tilbake
+              Back
             </button>
             <div className="text-sm text-muted-foreground">
-              Spørsmål {currentQuestion + 1} av {questions.length}
+              Question {currentQuestion + 1} of {questions.length}
             </div>
           </div>
         </nav>
@@ -266,28 +266,28 @@ export default function DemoPage() {
           <div className="container mx-auto px-4 py-4">
             <Link href="/" className="inline-flex items-center text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Tilbake til forsiden
+              Back to home
             </Link>
           </div>
         </nav>
         <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
           <div className="mb-8">
             <CheckCircle2 className="h-20 w-20 text-primary mx-auto mb-6" />
-            <h1 className="text-4xl font-bold mb-4">Bra jobbet!</h1>
+            <h1 className="text-4xl font-bold mb-4">Great Job!</h1>
             <p className="text-xl text-muted-foreground">
-              Du fikk {correctAnswers} av {totalQuestions} riktige
+              You got {correctAnswers} out of {totalQuestions} correct
             </p>
           </div>
           <Card className="mb-8">
             <CardContent className="py-8">
               <p className="text-lg mb-6">
-                Dette var bare en liten smakebit! Med SvenskPå3 får du nye leksjoner hver dag, 
-                tilpasset dine behov og mål.
+                This was just a small taste! With SvenskPå3, you get new lessons every day, 
+                tailored to your needs and goals.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/auth">
                   <Button size="lg" className="w-full sm:w-auto">
-                    Start gratis prøve
+                    Start Free Trial
                   </Button>
                 </Link>
                 <Button 
@@ -296,13 +296,13 @@ export default function DemoPage() {
                   onClick={() => setStep('select')}
                   className="w-full sm:w-auto"
                 >
-                  Prøv et annet scenario
+                  Try Another Scenario
                 </Button>
               </div>
             </CardContent>
           </Card>
           <p className="text-sm text-muted-foreground">
-            💡 Tips: Kom tilbake i morgen for å bygge opp streak-en din!
+            💡 Tip: Come back tomorrow to build your streak!
           </p>
         </div>
       </div>
