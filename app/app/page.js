@@ -57,10 +57,10 @@ export default function AppDashboard() {
   }
 
   const scenarioNames = {
-    butikk: 'Butikk',
-    jobb: 'Jobb',
-    telefon: 'Telefon',
-    lege: 'Lege'
+    butikk: 'Shop',
+    jobb: 'Work',
+    telefon: 'Phone',
+    lege: 'Doctor'
   };
 
   // Calculate weekly progress (last 7 days)
@@ -91,11 +91,11 @@ export default function AppDashboard() {
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Welcome */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Hei, {user?.displayName}!</h1>
+          <h1 className="text-3xl font-bold mb-2">Hi, {user?.displayName}!</h1>
           <p className="text-muted-foreground">
             {progress?.completedToday 
-              ? 'Flott! Du har fullført dagens leksjon. Kom tilbake i morgen!' 
-              : 'Klar for dagens leksjon?'}
+              ? 'Great! You\'ve completed today\'s lesson. Come back tomorrow!' 
+              : 'Ready for today\'s lesson?'}
           </p>
         </div>
 
@@ -107,33 +107,33 @@ export default function AppDashboard() {
               <Flame className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{progress?.currentStreak || 0} dager</div>
+              <div className="text-3xl font-bold">{progress?.currentStreak || 0} days</div>
               <p className="text-xs text-muted-foreground mt-1">
-                {progress?.currentStreak > 0 ? 'Fortsett rekken!' : 'Start en ny streak i dag'}
+                {progress?.currentStreak > 0 ? 'Keep it going!' : 'Start a new streak today'}
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Totalt XP</CardTitle>
+              <CardTitle className="text-sm font-medium">Total XP</CardTitle>
               <Trophy className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{progress?.totalXP || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Fortsett å lære hver dag
+                Keep learning every day
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Denne uken</CardTitle>
+              <CardTitle className="text-sm font-medium">This Week</CardTitle>
               <TrendingUp className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{completedThisWeek}/7</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Leksjoner fullført denne uken
+                Lessons completed this week
               </p>
             </CardContent>
           </Card>
@@ -142,11 +142,11 @@ export default function AppDashboard() {
         {/* Today's Lesson */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Dagens leksjon</CardTitle>
+            <CardTitle>Today's Lesson</CardTitle>
             <CardDescription>
               {progress?.completedToday 
-                ? 'Du har fullført dagens leksjon! Bra jobbet!' 
-                : 'Bruk bare 3 minutter og lær noe nytt i dag'}
+                ? 'You\'ve completed today\'s lesson! Well done!' 
+                : 'Take just 3 minutes and learn something new today'}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -155,17 +155,17 @@ export default function AppDashboard() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
                   <Trophy className="h-8 w-8 text-primary" />
                 </div>
-                <p className="text-lg font-medium mb-2">Leksjon fullført!</p>
+                <p className="text-lg font-medium mb-2">Lesson Complete!</p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Du har tjent +10 XP i dag. Kom tilbake i morgen for å fortsette!
+                  You earned +10 XP today. Come back tomorrow to continue!
                 </p>
-                <Badge variant="secondary">Neste leksjon: i morgen</Badge>
+                <Badge variant="secondary">Next lesson: tomorrow</Badge>
               </div>
             ) : (
               <Link href="/app/lesson">
                 <Button size="lg" className="w-full">
                   <Play className="h-5 w-5 mr-2" />
-                  Start dagens leksjon
+                  Start Today's Lesson
                 </Button>
               </Link>
             )}
@@ -175,9 +175,9 @@ export default function AppDashboard() {
         {/* Your Scenarios */}
         <Card>
           <CardHeader>
-            <CardTitle>Dine scenarioer</CardTitle>
+            <CardTitle>Your Scenarios</CardTitle>
             <CardDescription>
-              Leksjonene dine tilpasses disse situasjonene
+              Your lessons are tailored to these situations
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -186,11 +186,11 @@ export default function AppDashboard() {
                 <Badge key={scenario} variant="secondary" className="text-sm py-1.5 px-3">
                   {scenarioNames[scenario] || scenario}
                 </Badge>
-              )) || <p className="text-muted-foreground text-sm">Ingen scenarioer valgt ennå</p>}
+              )) || <p className="text-muted-foreground text-sm">No scenarios selected yet</p>}
             </div>
             <Link href="/app/settings">
               <Button variant="outline" size="sm">
-                Tilpass scenarioer
+                Customize Scenarios
               </Button>
             </Link>
           </CardContent>

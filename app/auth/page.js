@@ -38,7 +38,7 @@ export default function AuthPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Noe gikk galt');
+        throw new Error(data.error || 'Something went wrong');
       }
 
       router.push('/app');
@@ -55,7 +55,7 @@ export default function AuthPage() {
         <div className="container mx-auto px-4 py-4">
           <Link href="/" className="inline-flex items-center text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Tilbake
+            Back
           </Link>
         </div>
       </nav>
@@ -66,22 +66,22 @@ export default function AuthPage() {
               <Globe className="h-8 w-8 text-primary" />
               <span className="text-2xl font-semibold">SvenskPå3</span>
             </div>
-            <CardTitle>{mode === 'signin' ? 'Logg inn' : 'Opprett konto'}</CardTitle>
+            <CardTitle>{mode === 'signin' ? 'Sign In' : 'Create Account'}</CardTitle>
             <CardDescription>
               {mode === 'signin' 
-                ? 'Velkommen tilbake! Fortsett der du slapp.' 
-                : 'Start din svensk-reise i dag'}
+                ? 'Welcome back! Continue where you left off.' 
+                : 'Start your Swedish learning journey today'}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === 'signup' && (
                 <div className="space-y-2">
-                  <Label htmlFor="displayName">Navn</Label>
+                  <Label htmlFor="displayName">Name</Label>
                   <Input
                     id="displayName"
                     type="text"
-                    placeholder="Ditt navn"
+                    placeholder="Your name"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                     required={mode === 'signup'}
@@ -89,18 +89,18 @@ export default function AuthPage() {
                 </div>
               )}
               <div className="space-y-2">
-                <Label htmlFor="email">E-post</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="din@epost.no"
+                  placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Passord</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -119,30 +119,30 @@ export default function AuthPage() {
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Laster...
+                    Loading...
                   </>
-                ) : mode === 'signin' ? 'Logg inn' : 'Opprett konto'}
+                ) : mode === 'signin' ? 'Sign In' : 'Create Account'}
               </Button>
             </form>
             <div className="mt-6 text-center text-sm">
               {mode === 'signin' ? (
                 <p className="text-muted-foreground">
-                  Har du ikke en konto?{' '}
+                  Don't have an account?{' '}
                   <button 
                     onClick={() => setMode('signup')}
                     className="text-primary hover:underline font-medium"
                   >
-                    Registrer deg
+                    Sign up
                   </button>
                 </p>
               ) : (
                 <p className="text-muted-foreground">
-                  Har du allerede en konto?{' '}
+                  Already have an account?{' '}
                   <button 
                     onClick={() => setMode('signin')}
                     className="text-primary hover:underline font-medium"
                   >
-                    Logg inn
+                    Sign in
                   </button>
                 </p>
               )}
