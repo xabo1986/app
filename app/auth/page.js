@@ -69,8 +69,8 @@ export default function AuthPage() {
             <CardTitle>{mode === 'signin' ? 'Sign In' : 'Create Account'}</CardTitle>
             <CardDescription>
               {mode === 'signin' 
-                ? 'Welcome back! Continue where you left off.' 
-                : 'Start your Swedish learning journey today'}
+                ? 'Welcome back! Continue your Swedish basics.' 
+                : 'Start with survival Swedish in minutes.'}
             </CardDescription>
           </CardHeader>
           <CardContent>

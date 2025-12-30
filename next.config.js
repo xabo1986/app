@@ -23,15 +23,34 @@ const nextConfig = {
     pagesBufferLength: 2,
   },
   async headers() {
+    const allowedOrigins = process.env.CORS_ORIGINS;
+    const corsHeaders = allowedOrigins
+      ? [
+          { key: "Access-Control-Allow-Origin", value: allowedOrigins },
+          { key: "Access-Control-Allow-Methods", value: "GET, POST, PUT, DELETE, OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+        ]
+      : [];
+
     return [
       {
         source: "/(.*)",
         headers: [
-          { key: "X-Frame-Options", value: "ALLOWALL" },
-          { key: "Content-Security-Policy", value: "frame-ancestors *;" },
-          { key: "Access-Control-Allow-Origin", value: process.env.CORS_ORIGINS || "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET, POST, PUT, DELETE, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "*" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "frame-ancestors 'self'",
+              "img-src 'self' data: blob:",
+              "media-src 'self' data: blob:",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "style-src 'self' 'unsafe-inline'",
+              "connect-src 'self' https://api.stripe.com",
+            ].join("; "),
+          },
+          ...corsHeaders,
         ],
       },
     ];

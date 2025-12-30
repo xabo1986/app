@@ -11,16 +11,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const SCENARIOS = [
-  { id: 'butikk', label: 'Butikk' },
-  { id: 'jobb', label: 'Jobb' },
-  { id: 'telefon', label: 'Telefon' },
-  { id: 'lege', label: 'Lege' }
+  { id: 'butikk', label: 'Shopping' },
+  { id: 'jobb', label: 'Work' },
+  { id: 'telefon', label: 'Phone' },
+  { id: 'lege', label: 'Doctor' },
+  { id: 'reise', label: 'Travel' },
+  { id: 'mat', label: 'Food' },
+  { id: 'bolig', label: 'Housing' },
+  { id: 'survival', label: 'Survival basics' }
 ];
 
 const LEVELS = [
-  { id: 'beginner', label: 'Nybegynner' },
-  { id: 'intermediate', label: 'Middels' },
-  { id: 'advanced', label: 'Avansert' }
+  { id: 'beginner', label: 'Beginner' },
+  { id: 'intermediate', label: 'Intermediate' },
+  { id: 'advanced', label: 'Advanced' }
 ];
 
 export default function SettingsPage() {
@@ -77,12 +81,12 @@ export default function SettingsPage() {
       });
 
       if (response.ok) {
-        setMessage('Innstillinger lagret!');
+        setMessage('Settings saved!');
         setTimeout(() => setMessage(''), 3000);
       }
     } catch (error) {
       console.error('Error saving:', error);
-      setMessage('Noe gikk galt');
+      setMessage('Something went wrong');
     } finally {
       setSaving(false);
     }
@@ -115,31 +119,31 @@ export default function SettingsPage() {
         <div className="container mx-auto px-4 py-4">
           <Link href="/app" className="inline-flex items-center text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Tilbake til dashboard
+            Back to dashboard
           </Link>
         </div>
       </nav>
       <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <h1 className="text-3xl font-bold mb-8">Innstillinger</h1>
+        <h1 className="text-3xl font-bold mb-8">Settings</h1>
 
         {/* Profile Settings */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Profil</CardTitle>
-            <CardDescription>Administrer din personlige informasjon</CardDescription>
+            <CardTitle>Profile</CardTitle>
+            <CardDescription>Manage your personal information</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="displayName">Navn</Label>
+              <Label htmlFor="displayName">Name</Label>
               <Input
                 id="displayName"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Ditt navn"
+                placeholder="Your name"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">E-post</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 value={user?.email || ''}
@@ -148,7 +152,7 @@ export default function SettingsPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="level">Nivå</Label>
+              <Label htmlFor="level">Level</Label>
               <div className="flex gap-2">
                 {LEVELS.map((l) => (
                   <Button
@@ -162,12 +166,12 @@ export default function SettingsPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="goal">Ditt mål med å lære svensk</Label>
+              <Label htmlFor="goal">Your goal for learning Swedish</Label>
               <Input
                 id="goal"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                placeholder="F.eks. 'Snakke bedre med kollegaer'"
+                placeholder="E.g. 'Talk with colleagues more easily'"
               />
             </div>
           </CardContent>
@@ -176,9 +180,9 @@ export default function SettingsPage() {
         {/* Scenario Preferences */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Scenario-preferanser</CardTitle>
+            <CardTitle>Scenario preferences</CardTitle>
             <CardDescription>
-              Velg hvilke situasjoner du vil fokusere på i leksjonene dine
+              Choose the situations you want to focus on
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -196,7 +200,7 @@ export default function SettingsPage() {
             </div>
             {user?.plan === 'free' && scenarios.length > 2 && (
               <p className="text-sm text-muted-foreground mt-4">
-                Med Basic-planen kan du velge opptil 2 scenarioer. Oppgrader til Pro for ubegrenset tilgang.
+                On the Basic plan you can pick up to 2 scenarios. Upgrade to Pro for unlimited access.
               </p>
             )}
           </CardContent>
@@ -205,37 +209,37 @@ export default function SettingsPage() {
         {/* Billing */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Abonnement</CardTitle>
-            <CardDescription>Administrer ditt abonnement og betalinger</CardDescription>
+            <CardTitle>Subscription</CardTitle>
+            <CardDescription>Manage your subscription and billing</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="font-medium">Nåværende plan</p>
+                <p className="font-medium">Current plan</p>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {user?.plan === 'free' ? 'Basic (Gratis)' : 'Pro'}
+                  {user?.plan === 'free' ? 'Basic (Free)' : 'Pro'}
                 </p>
               </div>
               <Badge variant={user?.plan === 'pro' ? 'default' : 'secondary'}>
-                {user?.plan === 'free' ? 'Gratis' : 'Pro'}
+                {user?.plan === 'free' ? 'Free' : 'Pro'}
               </Badge>
             </div>
             {user?.plan === 'free' ? (
               <Link href="/">
                 <Button variant="outline" className="w-full">
-                  Oppgrader til Pro
+                  Upgrade to Pro
                 </Button>
               </Link>
             ) : (
               <Button variant="outline" className="w-full" disabled>
                 <ExternalLink className="h-4 w-4 mr-2" />
-                Administrer abonnement
+                Manage subscription
               </Button>
             )}
             <p className="text-xs text-muted-foreground mt-2">
               {user?.plan === 'free' 
-                ? 'Oppgrader til Pro for å få tilgang til alle scenarioer og funksjoner.'
-                : 'Stripe-integrasjon krever konfigurering. Se .env-filen.'}
+                ? 'Upgrade to Pro to unlock all scenarios and features.'
+                : 'Stripe integration requires configuration. See the .env file.'}
             </p>
           </CardContent>
         </Card>
@@ -251,17 +255,17 @@ export default function SettingsPage() {
             {saving ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Lagrer...
+                Saving...
               </>
             ) : (
               <>
                 <Save className="mr-2 h-4 w-4" />
-                Lagre endringer
+                Save changes
               </>
             )}
           </Button>
           <Button onClick={handleLogout} variant="outline">
-            Logg ut
+            Log out
           </Button>
         </div>
       </div>

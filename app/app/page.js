@@ -60,8 +60,17 @@ export default function AppDashboard() {
     butikk: 'Shop',
     jobb: 'Work',
     telefon: 'Phone',
-    lege: 'Doctor'
+    lege: 'Doctor',
+    reise: 'Travel',
+    mat: 'Food',
+    bolig: 'Housing',
+    survival: 'Survival basics'
   };
+
+  const lessonsCompletedToday = progress?.completedLessonsToday || 0;
+  const maxDailyLessons = progress?.maxDailyLessons || 1;
+  const lessonsRemaining = Math.max(0, maxDailyLessons - lessonsCompletedToday);
+  const hasCompletedAllToday = lessonsRemaining === 0;
 
   // Calculate weekly progress (last 7 days)
   const last7Days = progress?.progress?.slice(0, 7) || [];
@@ -93,14 +102,14 @@ export default function AppDashboard() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Hi, {user?.displayName}!</h1>
           <p className="text-muted-foreground">
-            {progress?.completedToday 
-              ? 'Great! You\'ve completed today\'s lesson. Come back tomorrow!' 
-              : 'Ready for today\'s lesson?'}
+            {hasCompletedAllToday
+              ? 'All tasks for today are done. See you tomorrow!'
+              : `You have ${lessonsRemaining} of ${maxDailyLessons} tasks left today.`}
           </p>
         </div>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Streak</CardTitle>
@@ -137,6 +146,18 @@ export default function AppDashboard() {
               </p>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Today</CardTitle>
+              <TrendingUp className="h-4 w-4 text-green-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{lessonsCompletedToday}/{maxDailyLessons}</div>
+              <p className="text-xs text-muted-foreground mt-1">
+                Tasks today
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Today's Lesson */}
@@ -144,28 +165,28 @@ export default function AppDashboard() {
           <CardHeader>
             <CardTitle>Today's Lesson</CardTitle>
             <CardDescription>
-              {progress?.completedToday 
-                ? 'You\'ve completed today\'s lesson! Well done!' 
-                : 'Take just 3 minutes and learn something new today'}
+              {hasCompletedAllToday 
+                ? 'You have finished all of today’s tasks. Great job!' 
+                : `Quick 3-minute session. ${lessonsRemaining} left today.`}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {progress?.completedToday ? (
+            {hasCompletedAllToday ? (
               <div className="text-center py-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
                   <Trophy className="h-8 w-8 text-primary" />
                 </div>
                 <p className="text-lg font-medium mb-2">Lesson Complete!</p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  You earned +10 XP today. Come back tomorrow to continue!
+                  All tasks for today are complete. Come back tomorrow to continue!
                 </p>
-                <Badge variant="secondary">Next lesson: tomorrow</Badge>
+                <Badge variant="secondary">Next session: tomorrow</Badge>
               </div>
             ) : (
               <Link href="/app/lesson">
                 <Button size="lg" className="w-full">
                   <Play className="h-5 w-5 mr-2" />
-                  Start Today's Lesson
+                  Start today’s task ({lessonsCompletedToday + 1}/{maxDailyLessons})
                 </Button>
               </Link>
             )}

@@ -3,10 +3,25 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
+const REQUIRED_ENV_VARS = ['MONGO_URL', 'JWT_SECRET'];
+const DAILY_XP_PER_LESSON = 10;
+const MAX_DAILY_LESSONS = 20;
+const ALLOWED_SCENARIOS = ['butikk', 'jobb', 'telefon', 'lege', 'reise', 'mat', 'bolig', 'survival'];
+const ALLOWED_LEVELS = ['beginner', 'intermediate', 'advanced'];
+
 let cachedClient = null;
 let cachedDb = null;
 
+function assertEnvVars() {
+  const missing = REQUIRED_ENV_VARS.filter((key) => !process.env[key]);
+  if (missing.length) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
+}
+
 async function connectToDatabase() {
+  assertEnvVars();
+
   if (cachedClient && cachedDb) {
     return { client: cachedClient, db: cachedDb };
   }
@@ -35,31 +50,94 @@ function createToken(userId) {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 }
 
+function sanitizeDisplayName(name, fallback) {
+  const candidate = (name || fallback || '').trim();
+  return candidate.slice(0, 80) || fallback;
+}
+
+function validateProfilePayload(updates, userPlan) {
+  const errors = [];
+  const validated = {};
+
+  if (updates.displayName !== undefined) {
+    if (typeof updates.displayName !== 'string') {
+      errors.push('displayName must be a string');
+    } else {
+      validated.displayName = sanitizeDisplayName(updates.displayName, '');
+    }
+  }
+
+  if (updates.level !== undefined) {
+    if (!ALLOWED_LEVELS.includes(updates.level)) {
+      errors.push('Ugyldig nivå');
+    } else {
+      validated.level = updates.level;
+    }
+  }
+
+  if (updates.goal !== undefined) {
+    if (typeof updates.goal !== 'string') {
+      errors.push('goal must be a string');
+    } else if (updates.goal.length > 200) {
+      errors.push('Målet må være under 200 tegn');
+    } else {
+      validated.goal = updates.goal.trim();
+    }
+  }
+
+  if (updates.scenarios !== undefined) {
+    if (!Array.isArray(updates.scenarios)) {
+      errors.push('scenarios må være en liste');
+    } else {
+      const uniqueScenarios = Array.from(new Set(updates.scenarios));
+      const invalidScenario = uniqueScenarios.find((s) => !ALLOWED_SCENARIOS.includes(s));
+
+      if (invalidScenario) {
+        errors.push('Ugyldig scenario valgt');
+      } else {
+        if (userPlan === 'free' && uniqueScenarios.length > 2) {
+          errors.push('Basic-planen tillater maks 2 scenarioer');
+        } else {
+          validated.scenarios = uniqueScenarios;
+        }
+      }
+    }
+  }
+
+  return { errors, validated };
+}
+
 // POST /api/auth/signup
 async function handleSignup(request) {
   try {
     const { email, password, displayName } = await request.json();
+    const normalizedEmail = (email || '').trim().toLowerCase();
     
-    if (!email || !password) {
+    if (!normalizedEmail || !password) {
       return NextResponse.json({ error: 'Email og passord er påkrevd' }, { status: 400 });
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json({ error: 'Passordet må være minst 8 tegn' }, { status: 400 });
     }
 
     const { db } = await connectToDatabase();
     
-    const existingUser = await db.collection('users').findOne({ email: email.toLowerCase() });
+    const existingUser = await db.collection('users').findOne({ email: normalizedEmail });
     if (existingUser) {
       return NextResponse.json({ error: 'E-post er allerede registrert' }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const safeDisplayName = sanitizeDisplayName(displayName, normalizedEmail.split('@')[0]);
     
     const result = await db.collection('users').insertOne({
-      email: email.toLowerCase(),
+      email: normalizedEmail,
       password: hashedPassword,
-      displayName: displayName || email.split('@')[0],
+      displayName: safeDisplayName,
       level: 'beginner',
       goal: '',
-      scenarios: ['butikk', 'jobb'],
+      scenarios: ['survival', 'butikk'],
       plan: 'free',
       createdAt: new Date()
     });
@@ -70,8 +148,8 @@ async function handleSignup(request) {
       success: true,
       user: {
         id: result.insertedId.toString(),
-        email: email.toLowerCase(),
-        displayName: displayName || email.split('@')[0]
+        email: normalizedEmail,
+        displayName: safeDisplayName
       }
     });
     
@@ -210,19 +288,21 @@ async function handleUpdateProfile(request) {
 
     const updates = await request.json();
     const { db } = await connectToDatabase();
-    
-    const allowedFields = ['displayName', 'level', 'goal', 'scenarios'];
-    const updateData = {};
-    
-    for (const field of allowedFields) {
-      if (updates[field] !== undefined) {
-        updateData[field] = updates[field];
-      }
+    const user = await db.collection('users').findOne({ _id: new ObjectId(decoded.userId) });
+
+    if (!user) {
+      return NextResponse.json({ error: 'Bruker ikke funnet' }, { status: 404 });
+    }
+
+    const { errors, validated } = validateProfilePayload(updates, user.plan);
+
+    if (errors.length) {
+      return NextResponse.json({ error: errors.join('. ') }, { status: 400 });
     }
 
     await db.collection('users').updateOne(
       { _id: new ObjectId(decoded.userId) },
-      { $set: updateData }
+      { $set: validated }
     );
 
     return NextResponse.json({ success: true });
@@ -268,6 +348,8 @@ async function handleGetProgress(request) {
       currentStreak = yesterdayProgress.streakAfter;
     }
 
+    const completedLessonsToday = todayProgress?.completionsCount || 0;
+
     // Calculate total XP
     const totalXP = progress.reduce((sum, p) => sum + (p.xpEarned || 0), 0);
 
@@ -275,7 +357,9 @@ async function handleGetProgress(request) {
       progress,
       currentStreak,
       totalXP,
-      completedToday: todayProgress?.completed || false
+      completedToday: completedLessonsToday >= MAX_DAILY_LESSONS,
+      completedLessonsToday,
+      maxDailyLessons: MAX_DAILY_LESSONS
     });
   } catch (error) {
     console.error('Get progress error:', error);
@@ -291,49 +375,56 @@ async function handleCompleteLesson(request) {
       return NextResponse.json({ error: 'Ikke autorisert' }, { status: 401 });
     }
 
-    const { xpEarned } = await request.json();
     const { db } = await connectToDatabase();
     
     const today = new Date().toISOString().split('T')[0];
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
     
-    // Check if already completed today
     const todayProgress = await db.collection('daily_progress').findOne({
       userId: decoded.userId,
       date: today
     });
-    
-    if (todayProgress?.completed) {
-      return NextResponse.json({ error: 'Leksjon allerede fullført i dag' }, { status: 400 });
+
+    if (todayProgress?.completionsCount >= MAX_DAILY_LESSONS) {
+      return NextResponse.json({ error: 'Dagens maks antall oppgaver er nådd' }, { status: 400 });
     }
 
-    // Get yesterday's progress to calculate streak
+    // Get yesterday's progress to calculate streak for first completion
     const yesterdayProgress = await db.collection('daily_progress').findOne({
       userId: decoded.userId,
       date: yesterday
     });
 
-    const newStreak = yesterdayProgress?.completed ? (yesterdayProgress.streakAfter + 1) : 1;
+    const isFirstCompletionToday = !todayProgress;
+    const currentCompletions = todayProgress?.completionsCount || 0;
+    const newStreak = isFirstCompletionToday
+      ? (yesterdayProgress?.completed ? (yesterdayProgress.streakAfter + 1) : 1)
+      : todayProgress.streakAfter;
+
+    const updatedProgress = {
+      userId: decoded.userId,
+      date: today,
+      xpEarned: (todayProgress?.xpEarned || 0) + DAILY_XP_PER_LESSON,
+      completed: true,
+      streakAfter: newStreak,
+      completionsCount: currentCompletions + 1,
+      completedAt: new Date(),
+      lastCompletionAt: new Date()
+    };
 
     await db.collection('daily_progress').updateOne(
       { userId: decoded.userId, date: today },
-      { 
-        $set: {
-          userId: decoded.userId,
-          date: today,
-          xpEarned: xpEarned || 10,
-          completed: true,
-          streakAfter: newStreak,
-          completedAt: new Date()
-        }
-      },
+      { $set: updatedProgress },
       { upsert: true }
     );
 
     return NextResponse.json({ 
       success: true,
       streak: newStreak,
-      xpEarned: xpEarned || 10
+      xpEarned: DAILY_XP_PER_LESSON,
+      completionsCount: updatedProgress.completionsCount,
+      maxDailyLessons: MAX_DAILY_LESSONS,
+      totalXpToday: updatedProgress.xpEarned
     });
   } catch (error) {
     console.error('Complete lesson error:', error);
